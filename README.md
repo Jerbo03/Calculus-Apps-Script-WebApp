@@ -1,2 +1,3 @@
 # Calculus-Apps-Script-WebApp
-Sí
+
+First js project about a calculus practice web app based on DerivApp and IntegrApp from QPTMaths
