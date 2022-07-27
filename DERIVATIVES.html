@@ -1,0 +1,107 @@
+<script>
+
+  function beginDerivative() {
+    console.log("beginDerivative");
+    document.getElementById('ex-title').innerHTML = "Derivadas";
+    createDerEx();
+    showExercises();
+  }
+
+  function createDerEx() {
+    exType = "derivatives";
+    resetAnswers();
+    newCons();
+    curVar = newVar();
+    
+    //var templateId = Math.floor(Math.random()*tempDerEx.length);
+    var templateId = 4;
+    
+    updateExCons[templateId]();
+    var tempEx = "\\frac{d}{dx} " + tempDerEx[templateId];
+    tempEx = editTempEx(tempEx);
+    document.getElementById('math').innerHTML = katex.renderToString(tempEx);
+    
+    createAnswers(templateId, tempDerAns);
+  }
+
+  var tempDerEx = [
+    "A",
+    "Ax",
+    "Ax^{B}",
+    "Ae^{Bx}",
+    "A \\sqrt[B]{Cx}",
+    "\\frac{A}{B x^{C}}"
+  ];
+
+  var updateExCons = [
+    function() {},
+    function() {
+      if(curCons[0] == 1) {exCons[0] = ""} },
+    function() {
+      updateExCons[1]();
+      if(curCons[1] == 1) {
+        curCons[1] += 1;
+        exCons[1] = curCons[1];
+      } },
+    function() {
+      updateExCons[1]();
+      if(curCons[1] == 1) {exCons[1] = "";} },
+    function() {
+      updateExCons[2]();
+      if(curCons[1] == 2) {exCons[1] = ""};
+      if(curCons[2] == 1) {exCons[2] = ""};
+    },
+    function() {
+      if(curCons[2] == 1) {
+        curCons[2] += 1;
+        exCons[2] = curCons[2]; }
+      if(curCons[1] == 1) {exCons[1] = ""};
+    }
+  ];
+
+  var tempDerAns = [
+    "0",
+    "A",
+    "Ax^{B}",
+    "Ae^{Bx}",
+    "\\frac{A}{B \\sqrt[C]{(Dx)^{E}} }",
+    "\\frac{-A}{B x^{C}}"
+  ];
+
+  var updateAnsConsDer = [
+    function() {},
+    function() {},
+    function() {
+      ansCons[0] *= ansCons[1];
+      ansCons[1] -= 1;
+      if(ansCons[0] < 2) {ansCons[0] = ""};
+      if(ansCons[1] < 2) {ansCons[1] = ""};},
+    function() {
+      ansCons[0] *= ansCons[1];
+      if(ansCons[0] == 1) {ansCons[0] = ""};
+      if(ansCons[1] == 1) {ansCons[1] = ""}; },
+    function() {
+      ansCons[0] = ansCons[0] * ansCons[2];
+      var reduced = reduceFraction(ansCons[0], ansCons[1]);
+      ansCons[4] = ansCons[1] - 1;
+      ansCons[3] = ansCons[2];
+      ansCons[2] = ansCons[1];
+      ansCons[0] = reduced[0];
+      ansCons[1] = reduced[1];
+      if(ansCons[1] < 2) {ansCons[1] = ""};
+      if(ansCons[2] <= 2) {ansCons[2] = ""};
+      if(ansCons[3] < 2) {ansCons[3] = ""};
+      if(ansCons[4] < 2) {ansCons[4] = ""};
+    },
+    function() {
+      ansCons[0] *= ansCons[2];
+      var reduced = reduceFraction(ansCons[0], ansCons[1]);
+      ansCons[0] = reduced[0];
+      ansCons[1] = reduced[1];
+      ansCons[2] += 1;
+      if(curCons[1] == 1) {exCons[1] = ""};
+    }
+  ];
+
+
+</script>

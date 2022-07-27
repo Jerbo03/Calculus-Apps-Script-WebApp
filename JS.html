@@ -1,0 +1,132 @@
+<script>
+  document.getElementById("btn-int").onclick = function() {beginIntegral()};
+  document.getElementById("btn-der").onclick = function() {beginDerivative()};
+  document.getElementById("btn-mix").onclick = function() {beginMix()};
+  document.getElementById("btn-back").onclick = function() {showMenu()};
+  document.getElementById("btn-next").onclick = function() {
+    if (exType == "derivatives") { beginDerivative(); }
+    if (exType == "integrals") { beginIntegral(); }
+    if (exType == "mix") { beginMix(); }
+    document.getElementById("btn-next").classList.add("d-none");
+  };
+
+  function showExercises() {
+    document.getElementById("ex").classList.remove("d-none");
+    document.getElementById("menu").classList.add("d-none");
+  }
+
+  function showMenu() {
+    document.getElementById("ex").classList.add("d-none");
+    document.getElementById("menu").classList.remove("d-none");
+  }
+
+  function render(math) {
+    return katex.renderToString(math);
+  }
+
+  function reduceFraction(num, den) {
+    var mcd = getMcd(num, den);
+    return [num/mcd, den/mcd];
+  }
+
+  function getMcd(a, b) {
+    if (b == 0) return a;
+    return getMcd(b, a % b);
+  }
+
+  // Internal data
+  var exType = "none";
+
+  const variables =   ["x","y","z","t"];
+  var curVar = "x";
+
+  const constants =   ["A","B","C","D","E","F"];
+  var   curCons   =   [0,0,0,0,0,0];
+  var   exCons    =   [].concat(curCons);
+  var   ansCons   =   [].concat(curCons);
+
+  function newVar() {
+    return variables[Math.floor(Math.random()*variables.length)];
+  }
+
+  function newCons() {
+    for (let i = 0; i < constants.length; i++) {
+      curCons[i] = Math.floor(Math.random()*20)+1;
+    }
+    exCons = [].concat(curCons);
+    ansCons = [].concat(curCons);
+  }
+
+  function editTempEx(template) {
+    template = template.replaceAll("x", curVar);
+    for (let i = 0; i < constants.length; i++) {
+      template = template.replaceAll(constants[i], exCons[i]);
+    }
+    return template;
+  }
+
+  function editTempAns(template) {
+    template = template.replaceAll("x", curVar);
+    for (let i = 0; i < constants.length; i++) {
+      template = template.replaceAll(constants[i], ansCons[i]);
+    }
+    ansCons = [].concat(curCons);
+    return template;
+  }
+
+  var ansArr = [
+    document.getElementById("ans1"),
+    document.getElementById("ans2"),
+    document.getElementById("ans3"),
+    document.getElementById("ans4"),
+  ]
+  function createAnswers(key, tempAns) {
+    let avIndexes = [];
+    for (let i = 0; i < tempAns.length; i++) {
+      if (i == key) {continue;}
+      avIndexes.push(i);
+    }
+
+    updateAnsCons(key);
+    var ansIndex = Math.floor(Math.random()*ansArr.length);
+    ansArr[ansIndex].innerHTML = render(editTempAns(tempAns[key]));
+    ansArr[ansIndex].onclick = function() {correctAnswer(ansArr[ansIndex])};
+
+    for (let i = 0; i < ansArr.length; i++) {
+      if (i == ansIndex) {continue;}
+      var index = Math.floor(Math.random()*avIndexes.length);
+      updateAnsCons(avIndexes[index]);
+      ansArr[i].innerHTML = render(editTempAns(tempAns[avIndexes[index]]));
+      ansArr[i].onclick = function() {incorrectAnswer(ansArr[i])};
+      avIndexes.splice(index, 1);
+    }
+  }
+
+  function updateAnsCons(key) {
+    ansCons = [].concat(curCons);
+    if (exType == "derivatives") { updateAnsConsDer[key](); }
+    if (exType == "integrals") { updateAnsConsInt[key](); }
+    if (exType == "mix") { updateAnsConsMix[key](); }
+  }
+
+  function resetAnswers() {
+    for (let i = 0; i < ansArr.length; i++) {
+      ansArr[i].classList.remove("btn-danger");
+      ansArr[i].classList.remove("btn-success");
+      ansArr[i].classList.add("btn-secondary");
+    }
+  }
+
+  function incorrectAnswer(ansButton) {
+    ansButton.classList.remove("btn-secondary");
+    ansButton.classList.add("btn-danger");
+  }
+
+  function correctAnswer(ansButton) {
+    ansButton.classList.remove("btn-secondary");
+    ansButton.classList.add("btn-success");
+
+    document.getElementById("btn-next").classList.remove("d-none");
+  }
+
+</script>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+  <title>Client-side KaTeX</title>
+  <?!= include('CSS') ?>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js" integrity="sha512-1kNZVA50gKlorLAWU83+SdOAUwABzfFFQ4WuOAZTeS/UhNhnm9zU7rDv/Q5NEzSnr5u2L6uhR/+8icjjmHjSnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" integrity="sha512-J8je2SgrCzA7hNBeiCJiA6oETHTTdp3We3EriOgJp6POycGLcDXj5dSwWlAPQcYGeaQ4N3uf30aOg/Nt5pxW2g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+
+<body>
+  <div id="menu" class=" h-100 d-flex justify-content-center align-items-center">
+    <div class="card text-center" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Fast Calculus</h5>
+        <p class="card-text">Comienza</p>
+        <div class="btn-group-vertical btn-lg btn-block" style="width: 14rem;">
+          <button type="button" class="btn btn-primary btn-lg btn-block" id="btn-der">Derivadas</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" id="btn-int">Integrales</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" id="btn-mix">Mixto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ex" class="h-100 d-flex justify-content-center align-items-center d-none">
+    <div class="card text-center" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title" id="ex-title">Special title treatment</h5>
+        <p class="card-text" id="math"></p>
+        <div class="btn-group-vertical btn-lg btn-block" style="width: 14rem;">
+          <button type="button" class="btn btn-secondary btn-lg btn-block" id="ans1">1</button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block" id="ans2">2</button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block" id="ans3">3</button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block" id="ans4">4</button>
+        </div>
+      </div>
+
+      <div class="card-footer bg-transparent border-success">
+        <div class="btn-group btn-lg btn-block" style="width: 14rem;">
+          <button type="button" class="btn btn-danger" id="btn-back">Atrás</button>
+          <button type="button" class="btn btn-info d-none" id="btn-next">Siguiente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <?!= include('JS'); ?>
+  <?!= include('DERIVATIVES'); ?>
+  <?!= include('INTEGRALS'); ?>
+  <?!= include('MIX'); ?>
+</body>
+</html>
