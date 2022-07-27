@@ -7,23 +7,28 @@
     showExercises();
   }
 
+  // Modificatin of the exercise card
   function createDerEx() {
+    // Basic set up
     exType = "derivatives";
     resetAnswers();
     newCons();
     curVar = newVar();
     
-    //var templateId = Math.floor(Math.random()*tempDerEx.length);
-    var templateId = 4;
+    // Choose an exercise
+    var templateId = Math.floor(Math.random()*tempDerEx.length);
     
+    // Create the KATEX
     updateExCons[templateId]();
     var tempEx = "\\frac{d}{dx} " + tempDerEx[templateId];
     tempEx = editTempEx(tempEx);
     document.getElementById('math').innerHTML = katex.renderToString(tempEx);
     
+    // Create answers
     createAnswers(templateId, tempDerAns);
   }
 
+  // Storage for the exercise templates
   var tempDerEx = [
     "A",
     "Ax",
@@ -33,6 +38,7 @@
     "\\frac{A}{B x^{C}}"
   ];
 
+  // Storage for the exercise set up templates
   var updateExCons = [
     function() {},
     function() {
@@ -59,6 +65,7 @@
     }
   ];
 
+  // Storage for the answer templates
   var tempDerAns = [
     "0",
     "A",
@@ -68,6 +75,7 @@
     "\\frac{-A}{B x^{C}}"
   ];
 
+  // Storage for the answer set up templates
   var updateAnsConsDer = [
     function() {},
     function() {},
