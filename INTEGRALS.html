@@ -3,7 +3,113 @@
   function beginIntegral() {
     console.log("beginIntegral");
     document.getElementById('ex-title').innerHTML = "Integrales";
+    createIntEx();
     showExercises();
   }
+
+  // Modification of the exercise card
+  function createIntEx() {
+    // Basic set up
+    exType = "integrals";
+    resetAnswers();
+    newCons();
+    curVar = newVar();
+    
+    // Choose an exercise
+    var templateId = Math.floor(Math.random()*tempIntEx.length);
+    
+    // Create the KATEX
+    updateExCons[templateId]();
+    var tempEx = "\\Large \\displaystyle\\int " + tempIntEx[templateId] + " \\,dx";
+    tempEx = editTempEx(tempEx);
+    document.getElementById('math').innerHTML = katex.renderToString(tempEx);
+    
+    // Create answers
+    createAnswers(templateId, tempIntAns);
+  }
+
+  // Storage for the exercise templates
+  var tempIntEx = [
+    "A",
+    "Ax",
+    "Ax^{B}",
+    "Ae^{Bx}",
+    "A \\sqrt[B]{Cx}",
+    "\\frac{A}{B x^{C}}"
+  ];
+
+  // Storage for the exercise set up templates
+  var updateExCons = [
+    function() {},
+    function() {
+      if(curCons[0] == 1) {exCons[0] = ""} },
+    function() {
+      updateExCons[1]();
+      if(curCons[1] == 1) {
+        curCons[1] += 1;
+        exCons[1] = curCons[1];
+      } },
+    function() {
+      updateExCons[1]();
+      if(curCons[1] == 1) {exCons[1] = "";} },
+    function() {
+      updateExCons[2]();
+      if(curCons[1] == 2) {exCons[1] = ""};
+      if(curCons[2] == 1) {exCons[2] = ""};
+    },
+    function() {
+      if(curCons[2] == 1) {
+        curCons[2] += 1;
+        exCons[2] = curCons[2]; }
+      if(curCons[1] == 1) {exCons[1] = ""};
+    }
+  ];
+
+  // Storage for the answer templates
+  var tempIntAns = [
+    "0",
+    "A",
+    "Ax^{B}",
+    "Ae^{Bx}",
+    "\\frac{A}{B \\sqrt[C]{(Dx)^{E}} }",
+    "-\\frac{A}{B x^{C}}"
+  ];
+
+  // Storage for the answer set up templates
+  var updateAnsConsInt = [
+    function() {},
+    function() {},
+    function() {
+      ansCons[0] *= ansCons[1];
+      ansCons[1] -= 1;
+      if(ansCons[0] < 2) {ansCons[0] = ""};
+      if(ansCons[1] < 2) {ansCons[1] = ""};},
+    function() {
+      ansCons[0] *= ansCons[1];
+      if(ansCons[0] == 1) {ansCons[0] = ""};
+      if(ansCons[1] == 1) {ansCons[1] = ""}; },
+    function() {
+      ansCons[0] = ansCons[0] * ansCons[2];
+      var reduced = reduceFraction(ansCons[0], ansCons[1]);
+      ansCons[4] = ansCons[1] - 1;
+      ansCons[3] = ansCons[2];
+      ansCons[2] = ansCons[1];
+      ansCons[0] = reduced[0];
+      ansCons[1] = reduced[1];
+      if(ansCons[1] < 2) {ansCons[1] = ""};
+      if(ansCons[2] <= 2) {ansCons[2] = ""};
+      if(ansCons[3] < 2) {ansCons[3] = ""};
+      if(ansCons[4] < 2) {ansCons[4] = ""};
+    },
+    function() {
+      ansCons[0] *= ansCons[2];
+      var reduced = reduceFraction(ansCons[0], ansCons[1]);
+      ansCons[0] = reduced[0];
+      ansCons[1] = reduced[1];
+      ansCons[2] += 1;
+      if(curCons[1] == 1) {exCons[1] = ""};
+    }
+  ];
+
 
 </script>

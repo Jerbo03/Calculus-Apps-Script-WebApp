@@ -7,7 +7,7 @@
     showExercises();
   }
 
-  // Modificatin of the exercise card
+  // Modification of the exercise card
   function createDerEx() {
     // Basic set up
     exType = "derivatives";
@@ -20,7 +20,7 @@
     
     // Create the KATEX
     updateExCons[templateId]();
-    var tempEx = "\\frac{d}{dx} " + tempDerEx[templateId];
+    var tempEx = "\\Large \\displaystyle\\frac{d}{dx}\\, " + tempDerEx[templateId];
     tempEx = editTempEx(tempEx);
     document.getElementById('math').innerHTML = katex.renderToString(tempEx);
     
@@ -72,7 +72,7 @@
     "Ax^{B}",
     "Ae^{Bx}",
     "\\frac{A}{B \\sqrt[C]{(Dx)^{E}} }",
-    "\\frac{-A}{B x^{C}}"
+    "-\\frac{A}{B x^{C}}"
   ];
 
   // Storage for the answer set up templates

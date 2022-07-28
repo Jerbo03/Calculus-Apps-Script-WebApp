@@ -5,9 +5,9 @@
   document.getElementById("btn-mix").onclick = function() {beginMix()};
   document.getElementById("btn-back").onclick = function() {showMenu()};
   document.getElementById("btn-next").onclick = function() {
-    if (exType == "derivatives") { beginDerivative(); }
-    if (exType == "integrals") { beginIntegral(); }
-    if (exType == "mix") { beginMix(); }
+    if (exType == "derivatives")  { beginDerivative(); }
+    if (exType == "integrals")    { beginIntegral(); }
+    if (exType == "mix")          { beginMix(); }
     document.getElementById("btn-next").classList.add("d-none");
   };
 
