@@ -1,13 +1,26 @@
 <script>
+  // Checks if all exercises have answers and methods to get them
+  document.body.onload = function(){
+    // Check derivatives
+    let okDer = (tempDerEx.length==updateExConsDer.length)&&(updateExConsDer.length==tempDerAns.length)&&(tempDerAns.length&&updateAnsConsDer);
+    // Check integrals
+    let okInt = (tempIntEx.length==updateExConsInt.length)&&(updateExConsInt.length==tempIntAns.length)&&(tempIntAns.length&&updateAnsConsInt);
+    if (!(okDer && okInt)) alert("number of Exercises and answers don't match");
+  };
+
   // Button set up
   document.getElementById("btn-int").onclick = function() {beginIntegral()};
   document.getElementById("btn-der").onclick = function() {beginDerivative()};
-  document.getElementById("btn-mix").onclick = function() {beginMix()};
+  document.getElementById("btn-mix").onclick = function() {
+    console.log("beginMix");
+    mix=true;
+    document.getElementById("btn-next").click();};
   document.getElementById("btn-back").onclick = function() {showMenu()};
   document.getElementById("btn-next").onclick = function() {
+    // If mix mode enabled, suffle next exercise type
+    if (mix)                      { exType =  Math.random() < 0.5 ? "derivatives" : "integrals"};
     if (exType == "derivatives")  { beginDerivative(); }
     if (exType == "integrals")    { beginIntegral(); }
-    if (exType == "mix")          { beginMix(); }
     document.getElementById("btn-next").classList.add("d-none");
   };
 
@@ -17,6 +30,7 @@
   }
 
   function showMenu() {
+    mix = false;
     document.getElementById("ex").classList.add("d-none");
     document.getElementById("menu").classList.remove("d-none");
   }
@@ -37,6 +51,7 @@
 
   // Internal data
   var exType = "none";
+  var mix = false;
 
   const variables =   ["x","y","z","t"];
   var curVar = "x"; // Current variable (the one from the exercise)
@@ -114,7 +129,6 @@
     ansCons = [].concat(curCons);
     if (exType == "derivatives") { updateAnsConsDer[key](); }
     if (exType == "integrals") { updateAnsConsInt[key](); }
-    if (exType == "mix") { updateAnsConsMix[key](); }
   }
   
   function resetAnswers() {

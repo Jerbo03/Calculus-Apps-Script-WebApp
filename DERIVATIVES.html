@@ -17,15 +17,19 @@
     
     // Choose an exercise
     var templateId = Math.floor(Math.random()*tempDerEx.length);
+    //templateId = 1; // For testing only
     
     // Create the KATEX
-    updateExCons[templateId]();
+    updateExConsDer[templateId]();
     var tempEx = "\\Large \\displaystyle\\frac{d}{dx}\\, " + tempDerEx[templateId];
     tempEx = editTempEx(tempEx);
     document.getElementById('math').innerHTML = katex.renderToString(tempEx);
     
     // Create answers
     createAnswers(templateId, tempDerAns);
+    console.log("cur:\t"+curCons);
+    console.log("ex:\t\t"+exCons);
+    console.log("ans:\t"+ansCons);
   }
 
   // Storage for the exercise templates
@@ -39,29 +43,29 @@
   ];
 
   // Storage for the exercise set up templates
-  var updateExCons = [
+  var updateExConsDer = [
     function() {},
     function() {
-      if(curCons[0] == 1) {exCons[0] = ""} },
+      if(curCons[0] == 1) {exCons[0] = "";} },
     function() {
-      updateExCons[1]();
+      updateExConsDer[1]();
       if(curCons[1] == 1) {
         curCons[1] += 1;
         exCons[1] = curCons[1];
       } },
     function() {
-      updateExCons[1]();
+      updateExConsDer[1]();
       if(curCons[1] == 1) {exCons[1] = "";} },
     function() {
-      updateExCons[2]();
-      if(curCons[1] == 2) {exCons[1] = ""};
-      if(curCons[2] == 1) {exCons[2] = ""};
+      updateExConsDer[2]();
+      if(curCons[1] == 2) {exCons[1] = "";};
+      if(curCons[2] == 1) {exCons[2] = "";};
     },
     function() {
       if(curCons[2] == 1) {
         curCons[2] += 1;
         exCons[2] = curCons[2]; }
-      if(curCons[1] == 1) {exCons[1] = ""};
+      if(curCons[1] == 1) {exCons[1] = "";};
     }
   ];
 
