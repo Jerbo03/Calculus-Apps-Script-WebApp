@@ -2,7 +2,7 @@
 
   function beginIntegral() {
     console.log("beginIntegral");
-    document.getElementById('ex-title').innerHTML = "Integrales";
+    document.getElementById('ex-title').innerHTML = "Integrals";
     createIntEx();
     showExercises();
   }
@@ -34,8 +34,8 @@
     "0",
     "A",
     "Ax^{B}",
-    "Ae^{Bx}"/*,
-    "A \\sqrt[B]{Cx}",
+    "Ae^{Bx}",
+    "A \\, \\sqrt[B]{Cx}"/*,
     "\\frac{A}{B x^{C}}",
     "A^{Bx}",
     "A \\sin (Bx)",
@@ -52,16 +52,20 @@
       if(exCons[0] == 1) {exCons[0]="";}
       if(exCons[1] == 1) {exCons[1]="";} },
     function() {
-      updateExConsInt[2](); }
+      updateExConsInt[2](); },
+    function() {
+      if(exCons[0] == 1) {exCons[0]="";}
+      if(exCons[1] < 2) {curCons[1]=2; exCons[1]="";}
+      if(exCons[2] == 1) {exCons[2]="";} }
   ];
 
   // Storage for the answer templates
   var tempIntAns = [
-    "0",
-    "Ax",
-    "Ax^{B}", // or "\\frac{A}{B}x^{C}"
-    "Ae^{Bx}" // or "\\frac{A}{B}e^{Cx}"
-    /*"A \\sqrt[B]{Cx}",
+    "c",
+    "Ax+c",
+    "Ax^{B}+c", // or "\\frac{A}{B}x^{C}"
+    "Ae^{Bx}+c", // or "\\frac{A}{B}e^{Cx}"
+    "A \\, x \\, \\sqrt[B]{Cx}"/*, or "\\frac{A}{B} \\sqrt[C]{(Dx)^{E}}"
     "\\frac{A}{B x^{C}}",
     "A^{Bx}",
     "A \\sin (Bx)",
@@ -78,10 +82,14 @@
     function() {
       ansCons[1] += 1;
       updateAnsConsInt[3](); },
-    function () {
+    function() {
       let reduced = reduceFraction(ansCons[0],ansCons[1]);
       if (reduced[1]==1) {ansCons[0]= reduced[0] == 1 ? "" : reduced[0];}
-      else {ansCons[0]="\\frac{"+reduced[0]+"}{"+reduced[1]+"}";} }
+      else { ansCons[0]="\\frac{"+reduced[0]+"}{"+reduced[1]+"}";} },
+    function() {
+      let reduced = reduceFraction(ansCons[0]*ansCons[1],ansCons[1]+1);
+      if (reduced[1]==1) {ansCons[0]= reduced[0] == 1 ? "" : reduced[0];}
+      else { ansCons[0]="\\frac{"+reduced[0]+"}{"+reduced[1]+"}";} }
   ];
 
 

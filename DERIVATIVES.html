@@ -2,7 +2,7 @@
 
   function beginDerivative() {
     console.log("beginDerivative");
-    document.getElementById('ex-title').innerHTML = "Derivadas";
+    document.getElementById('ex-title').innerHTML = "Derivatives";
     createDerEx();
     showExercises();
   }
@@ -31,12 +31,11 @@
 
   // Storage for the exercise templates
   var tempDerEx = [
-    "0",
     "A",
     "Ax",
     "Ax^{B}",
     "Ae^{Bx}",
-    "A \\sqrt[B]{Cx}",
+    "A \\, \\sqrt[B]{Cx}",
     "\\frac{A}{B x^{C}}",
     "A^{Bx}",
     "A \\sin (Bx)",
@@ -47,8 +46,7 @@
 
   // Storage for the exercise set up templates
   var updateExConsDer = [
-    function() {},
-    function() {},
+    function() { if(curCons[0]==1) {curCons[0] = Math.floor(Math.random)<0.5 ? 0 : 1; exCons[0]=curCons[0];} },
     function() {
       if(curCons[0] == 1) {exCons[0] = "";} },
     function() {
@@ -69,7 +67,7 @@
         exCons[2] = curCons[2]; }
       if(curCons[1] == 1) {exCons[1] = "";} },
     function() {
-      if(curCons[0] < 2) {curCons[0] = 2; exCons[1] = curCons[0];}
+      if(curCons[0] < 2) {curCons[0] = 2; exCons[0] = curCons[0];}
       if(curCons[1] == 1) {exCons[1]="";} },
     function() {
       if(curCons[0] == 1) {exCons[0] = "";}
@@ -85,13 +83,12 @@
   // Storage for the answer templates
   var tempDerAns = [
     "0",
-    "0",
     "A",
     "Ax^{B}",
     "Ae^{Bx}",
-    "\\frac{A}{B \\sqrt[C]{(Dx)^{E}} }",
+    "\\frac{A}{B \\, \\sqrt[C]{(Dx)^{E}} }",
     "-\\frac{A}{B x^{C}}",
-    "B\\, \\ln A\\, A^{Bx}",
+    "B\\, ln(A)\\, A^{Bx}",
     "A \\cos (Bx)",
     "-A \\sin (Bx)",
     "-A \\cos (Bx)",
@@ -100,7 +97,6 @@
 
   // Storage for the answer set up templates
   var updateAnsConsDer = [
-    function() {},
     function() {},
     function() {},
     function() {
