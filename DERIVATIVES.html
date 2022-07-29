@@ -17,7 +17,7 @@
     
     // Choose an exercise
     var templateId = Math.floor(Math.random()*tempDerEx.length);
-    //templateId = 1; // For testing only
+    //templateId = 10; // For testing only
     
     // Create the KATEX
     updateExConsDer[templateId]();
@@ -27,23 +27,27 @@
     
     // Create answers
     createAnswers(templateId, tempDerAns);
-    console.log("cur:\t"+curCons);
-    console.log("ex:\t\t"+exCons);
-    console.log("ans:\t"+ansCons);
   }
 
   // Storage for the exercise templates
   var tempDerEx = [
+    "0",
     "A",
     "Ax",
     "Ax^{B}",
     "Ae^{Bx}",
     "A \\sqrt[B]{Cx}",
-    "\\frac{A}{B x^{C}}"
+    "\\frac{A}{B x^{C}}",
+    "A^{Bx}",
+    "A \\sin (Bx)",
+    "A \\cos (Bx)",
+    "-A \\sin (Bx)",
+    "-A \\cos (Bx)"
   ];
 
   // Storage for the exercise set up templates
   var updateExConsDer = [
+    function() {},
     function() {},
     function() {
       if(curCons[0] == 1) {exCons[0] = "";} },
@@ -51,36 +55,52 @@
       updateExConsDer[1]();
       if(curCons[1] == 1) {
         curCons[1] += 1;
-        exCons[1] = curCons[1];
-      } },
+        exCons[1] = curCons[1]; } },
     function() {
       updateExConsDer[1]();
       if(curCons[1] == 1) {exCons[1] = "";} },
     function() {
       updateExConsDer[2]();
-      if(curCons[1] == 2) {exCons[1] = "";};
-      if(curCons[2] == 1) {exCons[2] = "";};
-    },
+      if(curCons[1] == 2) {exCons[1] = "";}
+      if(curCons[2] == 1) {exCons[2] = "";} },
     function() {
       if(curCons[2] == 1) {
         curCons[2] += 1;
         exCons[2] = curCons[2]; }
-      if(curCons[1] == 1) {exCons[1] = "";};
-    }
+      if(curCons[1] == 1) {exCons[1] = "";} },
+    function() {
+      if(curCons[0] < 2) {curCons[0] = 2; exCons[1] = curCons[0];}
+      if(curCons[1] == 1) {exCons[1]="";} },
+    function() {
+      if(curCons[0] == 1) {exCons[0] = "";}
+      if(curCons[1] == 1) {exCons[1] = "";} },
+    function() {
+      updateExConsDer[7](); },
+    function() {
+      updateExConsDer[7](); },
+    function() {
+      updateExConsDer[7](); }
   ];
 
   // Storage for the answer templates
   var tempDerAns = [
     "0",
+    "0",
     "A",
     "Ax^{B}",
     "Ae^{Bx}",
     "\\frac{A}{B \\sqrt[C]{(Dx)^{E}} }",
-    "-\\frac{A}{B x^{C}}"
+    "-\\frac{A}{B x^{C}}",
+    "B\\, \\ln A\\, A^{Bx}",
+    "A \\cos (Bx)",
+    "-A \\sin (Bx)",
+    "-A \\cos (Bx)",
+    "A \\sin (Bx)"
   ];
 
   // Storage for the answer set up templates
   var updateAnsConsDer = [
+    function() {},
     function() {},
     function() {},
     function() {
@@ -100,19 +120,29 @@
       ansCons[2] = ansCons[1];
       ansCons[0] = reduced[0];
       ansCons[1] = reduced[1];
-      if(ansCons[1] < 2) {ansCons[1] = ""};
-      if(ansCons[2] <= 2) {ansCons[2] = ""};
-      if(ansCons[3] < 2) {ansCons[3] = ""};
-      if(ansCons[4] < 2) {ansCons[4] = ""};
-    },
+      if(ansCons[1] < 2) {ansCons[1] = ""}
+      if(ansCons[2] <= 2) {ansCons[2] = ""}
+      if(ansCons[3] < 2) {ansCons[3] = ""}
+      if(ansCons[4] < 2) {ansCons[4] = ""} },
     function() {
       ansCons[0] *= ansCons[2];
       var reduced = reduceFraction(ansCons[0], ansCons[1]);
       ansCons[0] = reduced[0];
       ansCons[1] = reduced[1];
       ansCons[2] += 1;
-      if(curCons[1] == 1) {exCons[1] = ""};
-    }
+      if(curCons[1] == 1) {ansCons[1] = ""} },
+    function() {
+      if (ansCons[1] == 1) {ansCons[1] = "";} },
+    function()  {
+      ansCons[0] *= ansCons[1];
+      if (ansCons[0] == 1) {ansCons[0] = "";}
+      if (ansCons[1] == 1) {ansCons[1] = "";} },
+    function() {
+      updateAnsConsDer[7](); },
+    function() {
+      updateAnsConsDer[7](); },
+    function() {
+      updateAnsConsDer[7](); }
   ];
 
 

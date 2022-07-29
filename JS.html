@@ -127,8 +127,8 @@
 
   function updateAnsCons(key) { // Selects the update operation according to the type of exercise
     ansCons = [].concat(curCons);
-    if (exType == "derivatives") { updateAnsConsDer[key](); }
-    if (exType == "integrals") { updateAnsConsInt[key](); }
+    if (exType == "derivatives")  { updateAnsConsDer[key](); }
+    if (exType == "integrals")    { updateAnsConsInt[key](); }
   }
   
   function resetAnswers() {

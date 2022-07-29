@@ -17,6 +17,7 @@
     
     // Choose an exercise
     var templateId = Math.floor(Math.random()*tempIntEx.length);
+    templateId = 2; // For tests only
     
     // Create the KATEX
     updateExConsInt[templateId]();
@@ -30,42 +31,57 @@
 
   // Storage for the exercise templates
   var tempIntEx = [
+    "0",
     "A",
-    "Ax",
     "Ax^{B}",
-    "Ae^{Bx}",
+    "Ae^{Bx}"/*,
     "A \\sqrt[B]{Cx}",
-    "\\frac{A}{B x^{C}}"
+    "\\frac{A}{B x^{C}}",
+    "A^{Bx}",
+    "A \\sin (Bx)",
+    "A \\cos (Bx)",
+    "-A \\sin (Bx)",
+    "-A \\cos (Bx)"*/
   ];
 
   // Storage for the exercise set up templates
   var updateExConsInt = [
     function() {},
     function() {},
-    function() {},
-    function() {},
-    function() {},
-    function() {}
+    function() {
+      if(exCons[0] == 1) {exCons[0]="";}
+      if(exCons[1] == 1) {exCons[1]="";} },
+    function() {
+      updateExConsInt[2](); }
   ];
 
   // Storage for the answer templates
   var tempIntAns = [
     "0",
-    "A",
-    "Ax^{B}",
-    "Ae^{Bx}",
-    "\\frac{A}{B \\sqrt[C]{(Dx)^{E}} }",
-    "-\\frac{A}{B x^{C}}"
+    "Ax",
+    "Ax^{B}", // or "\\frac{A}{B}x^{C}"
+    "Ae^{Bx}" // or "\\frac{A}{B}e^{Cx}"
+    /*"A \\sqrt[B]{Cx}",
+    "\\frac{A}{B x^{C}}",
+    "A^{Bx}",
+    "A \\sin (Bx)",
+    "A \\cos (Bx)",
+    "-A \\sin (Bx)",
+    "-A \\cos (Bx)"*/
   ];
 
   // Storage for the answer set up templates
   var updateAnsConsInt = [
     function() {},
-    function() {},
-    function() {},
-    function() {},
-    function() {},
-    function() {}
+    function() {
+      if(ansCons[0] == 1) {ansCons[0]="";} },
+    function() {
+      ansCons[1] += 1;
+      updateAnsConsInt[3](); },
+    function () {
+      let reduced = reduceFraction(ansCons[0],ansCons[1]);
+      if (reduced[1]==1) {ansCons[0]= reduced[0] == 1 ? "" : reduced[0];}
+      else {ansCons[0]="\\frac{"+reduced[0]+"}{"+reduced[1]+"}";} }
   ];
 
 
