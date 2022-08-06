@@ -1,12 +1,12 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 authors:
-- family-names: "PAREDES QUISPE"
-  given-names: "JOSÉ ANDRÉ"
-  email: "2003andrepq@gmail.com"
 - family-names: "CHOQUE TACO"
   given-names: "SALVADOR LINCON"
   email: "salvadorlinc@gmail.com"
+- family-names: "PAREDES QUISPE"
+  given-names: "JOSÉ ANDRÉ"
+  email: "2003andrepq@gmail.com"
 title: "Calculus-Apps-Script-WebApp"
 version: 0.3.1
 date-released: 
