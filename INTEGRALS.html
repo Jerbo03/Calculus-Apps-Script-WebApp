@@ -85,11 +85,13 @@
     function() {
       let reduced = reduceFraction(ansCons[0],ansCons[1]);
       if (reduced[1]==1) {ansCons[0]= reduced[0] == 1 ? "" : reduced[0];}
-      else { ansCons[0]="\\frac{"+reduced[0]+"}{"+reduced[1]+"}";} },
+      else { ansCons[0]="\\frac{"+reduced[0]+"}{"+reduced[1]+"}";}
+      if ( ansCons[1] == 1) {ansCons[1]="";} },
     function() {
       let reduced = reduceFraction(ansCons[0]*ansCons[1],ansCons[1]+1);
       if (reduced[1]==1) {ansCons[0]= reduced[0] == 1 ? "" : reduced[0];}
-      else { ansCons[0]="\\frac{"+reduced[0]+"}{"+reduced[1]+"}";} }
+      else { ansCons[0]="\\frac{"+reduced[0]+"}{"+reduced[1]+"}";}
+      if ( ansCons[1] < 2) {ansCons[1]="";} }
   ];
 
 
